@@ -1,30 +1,39 @@
 package de.tfc.tic_tac_toe
 
-
+import android.graphics.Color
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
-import android.widget.Toast
+import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import android.widget.TextView
-
+import androidx.core.content.ContextCompat
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var buttons: Array<Array<Button>>
     private var player1Turn = true
     private var roundCount = 0
-    private var currentToast: Toast? = null // Declare a variable for the current Toast
+
+    private var playerXScore = 0
+    private var playerOScore = 0
+
+    private lateinit var textPlayerXScore: TextView
+    private lateinit var textPlayerOScore: TextView
+    private lateinit var textTurn: TextView
+    private lateinit var btnReset: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        showTurnToast()
+
+        textPlayerXScore = findViewById(R.id.textPlayerXScore)
+        textPlayerOScore = findViewById(R.id.textPlayerOScore)
+        textTurn = findViewById(R.id.textTurn)
+        btnReset = findViewById(R.id.btnReset)
 
         buttons = Array(3) { Array(3) { Button(this) } }
 
-        // Directly reference buttons by their IDs
         buttons[0][0] = findViewById(R.id.button1)
         buttons[0][1] = findViewById(R.id.button2)
         buttons[0][2] = findViewById(R.id.button3)
@@ -35,51 +44,65 @@ class MainActivity : AppCompatActivity() {
         buttons[2][1] = findViewById(R.id.button8)
         buttons[2][2] = findViewById(R.id.button9)
 
-        // Set click listeners for each button
         for (i in 0 until 3) {
             for (j in 0 until 3) {
                 buttons[i][j].setOnClickListener(ButtonClickListener())
             }
         }
+
+        btnReset.setOnClickListener {
+            resetAll()
+        }
+
+        updateTurnUI()
     }
 
     private inner class ButtonClickListener : View.OnClickListener {
         override fun onClick(v: View) {
-
-            if ((v as Button).text.toString() != "") {
+            val button = v as Button
+            if (button.text.toString() != "") {
                 return
             }
 
-            v.text = if (player1Turn) "X" else "O"
+            if (player1Turn) {
+                button.text = "X"
+                button.setTextColor(ContextCompat.getColor(this@MainActivity, R.color.player_x))
+            } else {
+                button.text = "O"
+                button.setTextColor(ContextCompat.getColor(this@MainActivity, R.color.player_o))
+            }
+
             roundCount++
 
             if (checkForWin()) {
                 if (player1Turn) {
-                    showWinnerDialog("X wins!")
+                    playerXScore++
+                    textPlayerXScore.text = playerXScore.toString()
+                    showWinnerDialog("Player X Wins!")
                 } else {
-                    showWinnerDialog("O wins!")
+                    playerOScore++
+                    textPlayerOScore.text = playerOScore.toString()
+                    showWinnerDialog("Player O Wins!")
                 }
-
             } else if (roundCount == 9) {
-                showWinnerDialog("It's a draw!")
-
+                showWinnerDialog("It's a Draw!")
             } else {
                 player1Turn = !player1Turn
-                showTurnToast()
+                updateTurnUI()
             }
-
         }
-
     }
-    private fun showTurnToast() {
-        // Cancel the existing Toast if it's already shown
-        currentToast?.cancel()
 
-        // Create a new Toast message
-        val message = if (player1Turn) "X turn" else "O turn"
-        currentToast = Toast.makeText(this, message, Toast.LENGTH_SHORT)
-        currentToast?.show()
+    private fun updateTurnUI() {
+        if (player1Turn) {
+            textTurn.text = "Player X's Turn"
+            textTurn.setTextColor(ContextCompat.getColor(this, R.color.player_x))
+        } else {
+            textTurn.text = "Player O's Turn"
+            textTurn.setTextColor(ContextCompat.getColor(this, R.color.player_o))
+        }
     }
+
     private fun checkForWin(): Boolean {
         val field = Array(3) { arrayOfNulls<String>(3) }
         for (i in 0 until 3) {
@@ -109,10 +132,10 @@ class MainActivity : AppCompatActivity() {
         return false
     }
 
-    private fun resetGame() {
+    private fun resetBoard() {
         roundCount = 0
         player1Turn = true
-        showTurnToast()
+        updateTurnUI()
         for (i in 0 until 3) {
             for (j in 0 until 3) {
                 buttons[i][j].text = ""
@@ -120,28 +143,31 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    private fun resetAll() {
+        playerXScore = 0
+        playerOScore = 0
+        textPlayerXScore.text = "0"
+        textPlayerOScore.text = "0"
+        resetBoard()
+    }
+
     private fun showWinnerDialog(message: String) {
-        // Inflate the custom dialog layout
         val dialogView = layoutInflater.inflate(R.layout.dialog_winner, null)
         val winnerMessageTextView: TextView = dialogView.findViewById(R.id.winnerMessage)
         val resetButton: Button = dialogView.findViewById(R.id.resetButton)
 
-        // Set the winner message
         winnerMessageTextView.text = message
 
-        // Create the dialog
         val builder = AlertDialog.Builder(this)
         builder.setView(dialogView)
         val dialog = builder.create()
-        // Set the dialog to be non-cancelable
         dialog.setCancelable(false)
-        // Set the reset button click listener
+
         resetButton.setOnClickListener {
-            resetGame()
+            resetBoard()
             dialog.dismiss()
         }
 
-        // Show the dialog
         dialog.show()
     }
 }
