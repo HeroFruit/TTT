@@ -1,6 +1,5 @@
 package de.tfc.tic_tac_toe.ui.theme
 
-import android.app.Activity
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
@@ -12,31 +11,37 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
 
 private val DarkColorScheme = darkColorScheme(
-    primary = Purple80,
-    secondary = PurpleGrey80,
-    tertiary = Pink80
+    primary = MdPrimary,
+    onPrimary = MdOnPrimary,
+    primaryContainer = MdPrimaryContainer,
+    onPrimaryContainer = MdOnPrimaryContainer,
+    secondary = MdSecondary,
+    onSecondary = MdOnSecondary,
+    secondaryContainer = MdSecondaryContainer,
+    onSecondaryContainer = MdOnSecondaryContainer,
+    tertiary = MdTertiary,
+    onTertiary = MdOnTertiary,
+    background = MdBackground,
+    onBackground = MdOnBackground,
+    surface = MdSurface,
+    onSurface = MdOnSurface,
+    surfaceContainer = MdSurfaceContainer,
+    surfaceContainerHigh = MdSurfaceContainerHigh,
+    surfaceContainerHighest = MdSurfaceContainerHighest
 )
 
 private val LightColorScheme = lightColorScheme(
-    primary = Purple40,
-    secondary = PurpleGrey40,
-    tertiary = Pink40
-
-    /* Other default colors to override
-    background = Color(0xFFFFFBFE),
-    surface = Color(0xFFFFFBFE),
-    onPrimary = Color.White,
-    onSecondary = Color.White,
-    onTertiary = Color.White,
-    onBackground = Color(0xFF1C1B1F),
-    onSurface = Color(0xFF1C1B1F),
-    */
+    primary = MdPrimaryContainer,
+    onPrimary = MdOnPrimaryContainer,
+    secondary = MdSecondaryContainer,
+    onSecondary = MdOnSecondaryContainer,
+    tertiary = MdTertiary,
+    onTertiary = MdOnTertiary
 )
 
 @Composable
 fun TicTacToeTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
-    // Dynamic color is available on Android 12+
     dynamicColor: Boolean = true,
     content: @Composable () -> Unit
 ) {
@@ -47,7 +52,7 @@ fun TicTacToeTheme(
         }
 
         darkTheme -> DarkColorScheme
-        else -> DarkColorScheme
+        else -> LightColorScheme
     }
 
     MaterialTheme(

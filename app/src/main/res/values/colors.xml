@@ -1,14 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="background_dark">#1A1A2E</color>
-    <color name="card_background">#16213E</color>
-    <color name="primary_color">#0F3460</color>
-    <color name="accent_color">#E94560</color>
+    <!-- Material 3 Color Palette -->
+    <color name="md_theme_primary">#A8C7FF</color>
+    <color name="md_theme_onPrimary">#003062</color>
+    <color name="md_theme_primaryContainer">#004689</color>
+    <color name="md_theme_onPrimaryContainer">#D6E3FF</color>
+
+    <color name="md_theme_secondary">#7FCFFF</color>
+    <color name="md_theme_onSecondary">#00344A</color>
+    <color name="md_theme_secondaryContainer">#004C6A</color>
+    <color name="md_theme_onSecondaryContainer">#C2E8FF</color>
+
+    <color name="md_theme_tertiary">#FFB4AB</color>
+    <color name="md_theme_onTertiary">#690005</color>
+    <color name="md_theme_tertiaryContainer">#93000A</color>
+    <color name="md_theme_onTertiaryContainer">#FFDAD6</color>
+
+    <color name="md_theme_background">#111318</color>
+    <color name="md_theme_onBackground">#E2E2E9</color>
+
+    <color name="md_theme_surface">#111318</color>
+    <color name="md_theme_onSurface">#E2E2E9</color>
+
+    <color name="md_theme_surfaceContainer">#1E2027</color>
+    <color name="md_theme_surfaceContainerHigh">#282A32</color>
+    <color name="md_theme_surfaceContainerHighest">#33353F</color>
+
+    <color name="md_theme_outline">#8C919D</color>
+    <color name="md_theme_outlineVariant">#43474E</color>
+
+    <!-- App / Player Specific Colors -->
+    <color name="background_dark">#111318</color>
+    <color name="card_background">#1E2027</color>
+    <color name="primary_color">#004689</color>
+    <color name="accent_color">#A8C7FF</color>
     <color name="player_x">#FF6B6B</color>
     <color name="player_o">#4ECCA3</color>
-    <color name="button_bg">#0F3460</color>
-    <color name="text_main">#FFFFFF</color>
-    <color name="text_secondary">#B2B2B2</color>
+    <color name="button_bg">#33353F</color>
+    <color name="text_main">#E2E2E9</color>
+    <color name="text_secondary">#8C919D</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 </resources>
