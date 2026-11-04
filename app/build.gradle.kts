@@ -5,7 +5,7 @@ plugins {
 
 android {
     namespace = "de.tfc.tic_tac_toe"
-    compileSdk = 37
+    compileSdk = 36
 
     defaultConfig {
         applicationId = "de.tfc.tic_tac_toe"
