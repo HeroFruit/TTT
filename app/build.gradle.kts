@@ -10,7 +10,7 @@ android {
     defaultConfig {
         applicationId = "de.tfc.tic_tac_toe"
         minSdk = 23
-        targetSdk = 37
+        targetSdk = 36
         versionCode = 1
         versionName = "1.0"
 
